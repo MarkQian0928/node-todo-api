@@ -1,5 +1,10 @@
 const MongoClient = require('mongodb').MongoClient;
 
+var user ={name: 'Mark', age: 23};
+var {name}=user;
+console.log(name);
+
+
 //In MongoClient, first arguement is a string, url where your db lives. Second arguement is a callback argument.
 MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db)=>{
     if(err){
@@ -23,16 +28,33 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db)=>{
     //     console.log(JSON.stringify(result.ops, undefined, 2));
     // })
 
-    db.collection('Users').insertOne({
-        name: 'Mark',
-        age: '23',
-        location: 'Edmonton'
-    }, (err, result)=>{
-        if(err){
-            return console.log('unable to insert todo', err);
+    // db.collection('Users').insertOne({
+    //     name: 'Mark',
+    //     age: '23',
+    //     location: 'Edmonton'
+    // }, (err, result)=>{
+    //     if(err){
+    //         return console.log('unable to insert todo', err);
+    //     }
+    //     console.log(JSON.stringify(result.ops, undefined, 2));
+    // })
+
+    // console的结果如下，多了一行objectID
+    //objectID 是12 byte value:
+    //  4byte是time stamp; 
+    //  3 byte是machine identifier; 
+    //  2 bytes process ID; 
+    //  3 byte counter
+
+/*
+    [
+        {
+            "text": "Something to to",
+            "completed": false,
+            "_id": "596434f8560ba0f6637d990e"
         }
-        console.log(JSON.stringify(result.ops, undefined, 2));
-    })
+    ]
+*/
 
 
     db.close();
