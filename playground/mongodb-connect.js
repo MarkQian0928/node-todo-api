@@ -1,8 +1,15 @@
-const MongoClient = require('mongodb').MongoClient;
+//const MongoClient = require('mongodb').MongoClient;
 
-var user ={name: 'Mark', age: 23};
-var {name}=user;
-console.log(name);
+//const {MongoClient, ObjectID} = require('mongodb') same as: const MongoClient = require('mongodb').MongoClient;
+const {MongoClient, ObjectID} = require('mongodb');
+
+//create a new object ID
+var obj = new ObjectID();
+console.log(obj);
+
+// var user ={name: 'Mark', age: 23};
+// var {name}=user;
+// console.log(name);
 
 
 //In MongoClient, first arguement is a string, url where your db lives. Second arguement is a callback argument.
