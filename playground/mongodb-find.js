@@ -11,6 +11,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db)=>{
     //.find() with NO ARGUMENT means that we want to fetch everything. We want all documents from the `Todos`
     //.find({complete: false}) will only return the results that with `complete: false`
     //如果要想通过id来find，不能直接用 "_id: 'xxxxxx'" ,要用 "_id: new ObjectID('xxxxxx')"
+    //.then()里面必须是docs!!!!!!
     db.collection('Todos').find({
         _id: new ObjectID('596434f8560ba0f6637d990e')
     }).toArray().then((docs)=>{
@@ -20,6 +21,9 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db)=>{
         console.log('unable to fetch todos', err);
     });
 
+    //.count()
+    //.count()的作用是数有多少object被 .find()发现了
+    //.then()里面必须是count!!!!
     db.collection('Todos').find().count().then((count)=>{
         console.log(`Todos count: ${count}`);
     },(err)=>{
