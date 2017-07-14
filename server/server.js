@@ -7,15 +7,26 @@ mongoose.connect('mongodb://localhost:27017/TodoApp', {
     useMongoClient: true
 });
 
+
 var Todo = mongoose.model('Todo',{
+    // require: true 意味着 必须要有这个property
+    //minlength: 设置最小的长度，
+    //trim: true 删除收尾的空格。 '  Hello world  '=> 'Hello world’
     text:{
-        type: String
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
+
     },
+    //default: false, set the default value
     completed:{
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     completedAt:{
-        type: Number
+        type: Number,
+        default: null
     }
 });
 
@@ -31,9 +42,7 @@ newTodo.save().then((doc)=>{
 });
 
 var otherTodo = new Todo({
-    text: "go to starbucks",
-    completed: true,
-    completedAt: 123
+    text: "edit this course"
 });
 
 otherTodo.save().then((doc)=>{
