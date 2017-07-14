@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 const mongoose = require('mongoose');
 
@@ -50,3 +51,6 @@ otherTodo.save().then((doc)=>{
 },(e)=>{
     console.log('unable to save todo');
 });
+=======
+var {mongoose} = require('./db/mongoose');
+>>>>>>> POST
