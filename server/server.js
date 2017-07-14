@@ -1,11 +1,4 @@
-
-const mongoose = require('mongoose');
-
-//global, e.g. global.email,在整个project里只要在这里改变var email的值，就可以影响project里所有的email的value
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp', {
-    useMongoClient: true
-});
+var {mongoose} = require('./db/mongoose');
 
 var Todo = mongoose.model('Todo',{
     text:{
