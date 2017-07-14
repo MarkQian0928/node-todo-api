@@ -24,11 +24,11 @@ var newTodo = new Todo({
 });
 
 //save newTodo to the mongoDB and save returns a Promise
-// newTodo.save().then((doc)=>{
-//     console.log('Save todo', doc);
-// }, (e)=>{
-//     console.log('unable to save todo');
-// });
+newTodo.save().then((doc)=>{
+    console.log('Save todo', doc);
+}, (e)=>{
+    console.log('unable to save todo');
+});
 
 var otherTodo = new Todo({
     text: "go to starbucks",
