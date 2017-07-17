@@ -7,11 +7,24 @@ const request = require('supertest');
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
 
+//在做 GET test的时候，一定要有data，但是beforeEach()的作用就是要remove所有的data
+//所以我们要自己写一个array
+const todos = [{
+    text: 'first array'
+},{
+    text: 'second array'
+}];
+
+
+//为了能test GET并且不影响之前的POST test，我们要用到 .insertMany()
+
 //beforeEach is a lifecycle method that lets us run some code before every single test case.
 //We will use beforeEach to set up the database in a way this is useful.
 //with this, our database will be empty before every  request.
 beforeEach((done)=>{
-    Todo.remove({}).then(()=>done());
+    Todo.remove({}).then(()=>{
+        return Todo.insertMany(todos);
+    }).then(()=>done());
 });
 
 describe('POST/todos', ()=>{
@@ -29,8 +42,8 @@ describe('POST/todos', ()=>{
             if(err){
                 done(err);
             }
-
-            Todo.find().then((todos)=>{
+            //in the .find(), add {text}
+            Todo.find({text}).then((todos)=>{
                 expect(todos.length).toBe(1);
                 expect(todos[0].text).toBe(text);
                 done();
@@ -49,10 +62,23 @@ describe('POST/todos', ()=>{
             }
 
             Todo.find().then((todos)=>{
-                expect(todos.length).toBe(0);
+                //change 0 to 2
+                expect(todos.length).toBe(2);
                 done();
             }).catch((e)=>done(e));
 
         });
     })
+});
+
+describe('Get/Todos', ()=>{
+    it('should get all todos', (done)=>{
+        request(app)
+        .get('/todos')
+        .expect(200)
+        .expect((res)=>{
+            expect(todos.length).toBe(2);
+        })
+        .end(done);
+    });
 });
